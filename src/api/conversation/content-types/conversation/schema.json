@@ -1,0 +1,58 @@
+{
+  "kind": "collectionType",
+  "collectionName": "conversations",
+  "info": {
+    "singularName": "conversation",
+    "pluralName": "conversations",
+    "displayName": "Conversation",
+    "description": "Stores metadata about conversation recordings for the speakerId app"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "conversation_id": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "original_audio": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "audios"
+      ]
+    },
+    "date_processed": {
+      "type": "datetime",
+      "required": true
+    },
+    "duration_seconds": {
+      "type": "decimal",
+      "required": true
+    },
+    "speakers": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::speaker.speaker",
+      "mappedBy": "conversations"
+    },
+    "utterances": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::utterance.utterance",
+      "mappedBy": "conversation"
+    },
+    "transcript": {
+      "type": "richtext"
+    },
+    "short_utterance_stats": {
+      "type": "json"
+    },
+    "database_update_stats": {
+      "type": "json"
+    }
+  }
+}
